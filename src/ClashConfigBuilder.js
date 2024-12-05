@@ -185,7 +185,7 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
                     cipher: proxy.security,
                     tls: proxy.tls?.enabled || false,
                     'client-fingerprint': proxy.tls.utls?.fingerprint,
-                    servername: proxy.tls?.server_name || '',
+                    sni: proxy.tls?.server_name || '',
                     network: proxy.transport?.type || 'tcp',
                     'ws-opts': proxy.transport?.type === 'ws' ? {
                         path: proxy.transport.path,
@@ -200,7 +200,7 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
                         'grpc-service-name': proxy.transport.service_name,
                     } : undefined,
                     tfo : proxy.tcp_fast_open,
-                    'skip-cert-verify': proxy.tls.insecure,
+                    'skip-cert-verify': true,
                     'flow': proxy.flow ?? undefined,
 				}
             case 'tuic':

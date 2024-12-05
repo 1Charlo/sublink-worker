@@ -134,7 +134,7 @@ export function parseServerInfo(serverInfo) {
   
   export function createTlsConfig(params) {
 	let tls = { enabled: false };
-	if (params.security === 'xtls' || params.security === 'tls' || params.security === 'reality') {
+	if (params.security === 'xtls' || params.security === 'tls' || params.security === 'reality' || params?.sni) {
 	  tls = {
 		enabled: true,
 		server_name: params.sni,
