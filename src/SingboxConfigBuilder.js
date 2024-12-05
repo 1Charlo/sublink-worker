@@ -36,21 +36,34 @@ export class ConfigBuilder extends BaseConfigBuilder {
             outbounds: DeepCopy(proxyList),
         });
 
-        proxyList.unshift('DIRECT', 'REJECT', '⚡ 自动选择');
+        //proxyList.unshift( '⚡ 自动选择', 'DIRECT');
+        //proxyList.push('REJECT');
         outbounds.unshift('🚀 节点选择','GLOBAL');
         
         outbounds.forEach(outbound => {
-            if (outbound !== '🚀 节点选择') {
-                this.config.outbounds.push({
-                    type: "selector",
-                    tag: outbound,
-                    outbounds: ['🚀 节点选择', ...proxyList]
-                });
-            } else {
+            if (outbound === '🚀 节点选择') {
                 this.config.outbounds.unshift({
                     type: "selector",
                     tag: outbound,
-                    outbounds: proxyList
+                    outbounds: ['⚡ 自动选择', 'DIRECT', ...proxyList, 'REJECT']
+                });
+            } else if (outbound === '📺 哔哩哔哩' || outbound === '🏠 私有网络' || outbound === '🔒 国内服务') {
+                this.config.outbounds.push({
+                    type: "selector",
+                    tag: outbound,
+                    outbounds: ['DIRECT', ...proxyList]
+                });
+            } else if (outbound === '🛑 广告拦截'){
+                this.config.outbounds.push({
+                    type: "selector",
+                    tag: outbound,
+                    outbounds: ['REJECT', 'DIRECT']
+                });
+            } else {
+                this.config.outbounds.push({
+                    type: "selector",
+                    tag: outbound,
+                    outbounds: ['🚀 节点选择', '⚡ 自动选择', 'DIRECT', ...proxyList, 'REJECT']
                 });
             }
         });
@@ -60,7 +73,7 @@ export class ConfigBuilder extends BaseConfigBuilder {
                 this.config.outbounds.push({
                     type: "selector",
                     tag: rule.name,
-                    outbounds: ['🚀 节点选择', ...proxyList]
+                    outbounds: ['🚀 节点选择', '⚡ 自动选择', 'DIRECT', ...proxyList, 'REJECT']
                 });
             });
         }

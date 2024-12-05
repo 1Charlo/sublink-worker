@@ -43,21 +43,34 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
             lazy: false
         });
 
-        proxyList.unshift('DIRECT', 'REJECT', '⚡ 自动选择');
+        //proxyList.unshift( '⚡ 自动选择', 'DIRECT');
+        //proxyList.push('REJECT');
         outbounds.unshift('🚀 节点选择');
         
         outbounds.forEach(outbound => {
-            if (outbound !== '🚀 节点选择') {
-                this.config['proxy-groups'].push({
+            if (outbound === '🚀 节点选择') {
+                this.config['proxy-groups'].unshift({
                     type: "select",
                     name: outbound,
-                    proxies: ['🚀 节点选择', ...proxyList]
+                    proxies: ['⚡ 自动选择', 'DIRECT', ...proxyList, 'REJECT']
+                });
+            } else if (outbound === '📺 哔哩哔哩' || outbound === '🏠 私有网络' || outbound === '🔒 国内服务') {
+                this.config['proxy-groups'].unshift({
+                    type: "select",
+                    name: outbound,
+                    proxies: ['DIRECT', ...proxyList]
+                });
+            } else if (outbound === '🛑 广告拦截') {
+                this.config['proxy-groups'].unshift({
+                    type: "select",
+                    name: outbound,
+                    proxies: ['REJECT', 'DIRECT']
                 });
             } else {
                 this.config['proxy-groups'].unshift({
                     type: "select",
                     name: outbound,
-                    proxies: proxyList
+                    proxies: ['🚀 节点选择', '⚡ 自动选择', 'DIRECT', ...proxyList, 'REJECT']
                 });
             }
         });
@@ -67,7 +80,7 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
                 this.config['proxy-groups'].push({
                     type: "select",
                     name: rule.name,
-                    proxies: ['🚀 节点选择', ...proxyList]
+                    proxies: ['🚀 节点选择', '⚡ 自动选择', 'DIRECT', ...proxyList, 'REJECT']
                 });
             });
         }
