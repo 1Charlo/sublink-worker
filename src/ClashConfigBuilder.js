@@ -200,7 +200,7 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
                         'grpc-service-name': proxy.transport.service_name,
                     } : undefined,
                     tfo : proxy.tcp_fast_open,
-                    'skip-cert-verify': true,
+                    'skip-cert-verify': proxy.tls.insecure,
                     'flow': proxy.flow ?? undefined,
 				}
             case 'tuic':
