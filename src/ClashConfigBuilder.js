@@ -43,8 +43,6 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
             lazy: false
         });
 
-        //proxyList.unshift( '⚡ 自动选择', 'DIRECT');
-        //proxyList.push('REJECT');
         outbounds.unshift('🚀 节点选择');
         
         outbounds.forEach(outbound => {

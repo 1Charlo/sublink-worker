@@ -36,8 +36,6 @@ export class ConfigBuilder extends BaseConfigBuilder {
             outbounds: DeepCopy(proxyList),
         });
 
-        //proxyList.unshift( '⚡ 自动选择', 'DIRECT');
-        //proxyList.push('REJECT');
         outbounds.unshift('🚀 节点选择','GLOBAL');
         
         outbounds.forEach(outbound => {
