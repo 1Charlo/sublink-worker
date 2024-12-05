@@ -151,6 +151,9 @@ export function parseServerInfo(serverInfo) {
 		  short_id: params.sid,
 		};
 	  }
+	  if (!params?.security) {
+		tls.insecure = true;
+	  }
 	}
 	return tls;
   }
