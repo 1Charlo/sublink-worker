@@ -50,7 +50,7 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
                 this.config['proxy-groups'].unshift({
                     type: "select",
                     name: outbound,
-                    proxies: ['⚡ 自动选择', 'DIRECT', ...proxyList, 'REJECT']
+                    proxies: [...proxyList, 'DIRECT', 'REJECT']
                 });
             } else if (outbound === '📺 哔哩哔哩' || outbound === '🏠 私有网络' || outbound === '🔒 国内服务') {
                 this.config['proxy-groups'].push({

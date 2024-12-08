@@ -43,7 +43,7 @@ export class ConfigBuilder extends BaseConfigBuilder {
                 this.config.outbounds.unshift({
                     type: "selector",
                     tag: outbound,
-                    outbounds: ['⚡ 自动选择', 'DIRECT', ...proxyList, 'REJECT']
+                    outbounds: [...proxyList, 'DIRECT', 'REJECT']
                 });
             } else if (outbound === '📺 哔哩哔哩' || outbound === '🏠 私有网络' || outbound === '🔒 国内服务') {
                 this.config.outbounds.push({
