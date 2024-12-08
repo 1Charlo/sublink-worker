@@ -79,7 +79,7 @@ export class ConfigBuilder extends BaseConfigBuilder {
         this.config.outbounds.push({
             type: "selector",
             tag: "🐟 漏网之鱼",
-            outbounds: ['🚀 节点选择', ...proxyList]
+            outbounds: ['🚀 节点选择', ...proxyList, 'DIRECT']
         });
     }
 

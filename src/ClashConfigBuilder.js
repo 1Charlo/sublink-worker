@@ -86,7 +86,7 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
         this.config['proxy-groups'].push({
             type: "select",
             name: "🐟 漏网之鱼",
-            proxies: ['🚀 节点选择', ...proxyList]
+            proxies: ['🚀 节点选择', ...proxyList, 'DIRECT']
         });
     }
     formatConfig() {
