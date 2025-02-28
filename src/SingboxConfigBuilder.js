@@ -121,7 +121,7 @@ export class SingboxConfigBuilder extends BaseConfigBuilder {
             // 修改为 singbox 支持的新参数
             { action: 'sniff' }, { protocol: 'dns', action: 'hijack-dns' },
             { clash_mode: 'direct', outbound: 'DIRECT' },
-            { clash_mode: 'global', outbound: 'GLOBAL' }
+            { clash_mode: 'global', outbound: t('outboundNames.Node Select') }
         );
 
         this.config.route.auto_detect_interface = true;
