@@ -71,7 +71,7 @@ export class SingboxConfigBuilder extends BaseConfigBuilder {
                     this.config.outbounds.push({
                         type: "selector",
                         tag: t(`outboundNames.${outbound}`),
-                        outbounds: [t('outboundNames.Node Select'), ...proxyList]
+                        outbounds: [t('outboundNames.Node Select'), ...proxyList, 'DIRECT', 'REJECT']
                     });
                 }
             }

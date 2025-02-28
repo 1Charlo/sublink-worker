@@ -186,7 +186,7 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
                     this.config['proxy-groups'].push({
                         type: "select",
                         name: t(`outboundNames.${outbound}`),
-                        proxies: [t('outboundNames.Node Select'), ...proxyList]
+                        proxies: [t('outboundNames.Node Select'), ...proxyList, 'DIRECT', 'REJECT']
                     });
                 }
             }
