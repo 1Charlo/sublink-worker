@@ -41,7 +41,8 @@ export class SingboxConfigBuilder extends BaseConfigBuilder {
     }
 
     addNodeSelectGroup(proxyList) {
-        proxyList.unshift('DIRECT', 'REJECT', t('outboundNames.Auto Select'));
+        // 节点选择，去掉：直连、REJECT、自动选择
+        // proxyList.unshift('DIRECT', 'REJECT', t('outboundNames.Auto Select'));
         this.config.outbounds.unshift({
             type: "selector",
             tag: t('outboundNames.Node Select'),
@@ -52,11 +53,27 @@ export class SingboxConfigBuilder extends BaseConfigBuilder {
     addOutboundGroups(outbounds, proxyList) {
         outbounds.forEach(outbound => {
             if (outbound !== t('outboundNames.Node Select')) {
-                this.config.outbounds.push({
-                    type: "selector",
-                    tag: t(`outboundNames.${outbound}`),
-                    outbounds: [t('outboundNames.Node Select'), ...proxyList]
-                });
+                // 添加自己的定制化规则==================start
+                if (outbound === t('outboundNames.Ad Block')) { // 如果是广告拦截
+                    this.config.outbounds.push({
+                        type: "selector",
+                        tag: t(`outboundNames.${outbound}`),
+                        outbounds: ['REJECT', 'DIRECT']
+                    });
+                } else if (outbound === t('outboundNames.Private') || outbound === t('outboundNames.Location:CN') || outbound === t('outboundNames.Bilibili')) {
+                    this.config.outbounds.push({
+                        type: "selector",
+                        tag: t(`outboundNames.${outbound}`),
+                        outbounds: ['DIRECT', 'REJECT', ...proxyList]
+                    });
+                } else {
+                // 添加自己的定制化规则==================end
+                    this.config.outbounds.push({
+                        type: "selector",
+                        tag: t(`outboundNames.${outbound}`),
+                        outbounds: [t('outboundNames.Node Select'), ...proxyList]
+                    });
+                }
             }
         });
     }
