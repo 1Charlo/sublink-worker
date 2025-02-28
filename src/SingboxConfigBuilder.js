@@ -64,14 +64,14 @@ export class SingboxConfigBuilder extends BaseConfigBuilder {
                     this.config.outbounds.push({
                         type: "selector",
                         tag: t(`outboundNames.${outbound}`),
-                        outbounds: ['DIRECT', 'REJECT', ...proxyList]
+                        outbounds: ['DIRECT', ...proxyList]
                     });
                 } else {
                 // 添加自己的定制化规则==================end
                     this.config.outbounds.push({
                         type: "selector",
                         tag: t(`outboundNames.${outbound}`),
-                        outbounds: [t('outboundNames.Node Select'), ...proxyList, 'DIRECT', 'REJECT']
+                        outbounds: [t('outboundNames.Node Select'), ...proxyList, 'DIRECT']
                     });
                 }
             }
@@ -113,11 +113,17 @@ export class SingboxConfigBuilder extends BaseConfigBuilder {
             domain_keyword: rule.domain_keyword,
             ip_cidr: rule.ip_cidr,
             protocol: rule.protocol,
-            outbound: t(`outboundNames.${rule.outbound}`)
+            // 去掉 singbox 废弃的参数
+            outbound: rule?.outbound !== 'Ad Block' ? t(`outboundNames.${rule.outbound}`) : undefined,
+            // 修改为 singbox 支持的新参数
+            action: rule?.outbound === 'Ad Block' ? 'reject' : undefined
         }));
 
         this.config.route.rules.unshift(
-            { protocol: 'dns', outbound: 'dns-out' },
+            // 去掉 singbox 废弃的参数
+            // { protocol: 'dns', outbound: 'dns-out' },
+            // 修改为 singbox 支持的新参数
+            { action: 'sniff' }, { protocol: 'dns', action: 'hijack-dns' },
             { clash_mode: 'direct', outbound: 'DIRECT' },
             { clash_mode: 'global', outbound: 'GLOBAL' }
         );

@@ -346,12 +346,15 @@ export const SING_BOX_CONFIG = {
 	},
 	inbounds: [
 		{ type: 'mixed', tag: 'mixed-in', listen: '0.0.0.0', listen_port: 2080 },
-		{ type: 'tun', tag: 'tun-in', address: '172.19.0.1/30', auto_route: true, strict_route: true, stack: 'mixed', sniff: true }
+		// { type: 'tun', tag: 'tun-in', address: '172.19.0.1/30', auto_route: true, strict_route: true, stack: 'mixed', sniff: true }
+		// 去掉 singbox 废弃的参数
+		{ type: 'tun', tag: 'tun-in', address: '172.19.0.1/30', auto_route: true, strict_route: true, stack: 'mixed' }
 	],
 	outbounds: [
-		{ type: 'direct', tag: 'DIRECT' },
-		{ type: 'block', tag: 'REJECT' },
-		{ type: 'dns', tag: 'dns-out' }
+		{ type: 'direct', tag: 'DIRECT' }
+		// 去掉 singbox 废弃的参数
+		// { type: 'block', tag: 'REJECT' },
+		// { type: 'dns', tag: 'dns-out' }
 	],
 	route : {
 		"rule_set": [
