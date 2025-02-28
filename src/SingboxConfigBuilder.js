@@ -55,11 +55,7 @@ export class SingboxConfigBuilder extends BaseConfigBuilder {
             if (outbound !== 'Node Select') {
                 // 添加自己的定制化规则==================start
                 if (outbound === 'Ad Block') { // 如果是广告拦截
-                    this.config.outbounds.push({
-                        type: "selector",
-                        tag: t(`outboundNames.${outbound}`),
-                        outbounds: ['REJECT', 'DIRECT']
-                    });
+                    // 去掉 singbox 废弃的参数。这里需要跳过往outbounds里加Ad Block，因为新版本已经在route.rules中做了处理了
                 } else if (outbound === 'Private' || outbound === 'Location:CN' || outbound === 'Bilibili') {
                     this.config.outbounds.push({
                         type: "selector",
