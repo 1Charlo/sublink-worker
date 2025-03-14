@@ -2,7 +2,7 @@ import { parseServerInfo, parseUrlParams, createTlsConfig, createTransportConfig
 
 
 export class ProxyParser {
-	static parse(url) {
+	static parse(url, userAgent) {
 		url = url.trim();
 		const type = url.split('://')[0];
 		switch(type) {
@@ -14,7 +14,7 @@ export class ProxyParser {
         return new Hysteria2Parser().parse(url);
       case 'http':
       case 'https':
-        return HttpParser.parse(url);
+        return HttpParser.parse(url, userAgent);
       case 'trojan': return new TrojanParser().parse(url);
       case 'tuic': return new TuicParser().parse(url);
 		}
@@ -36,7 +36,7 @@ export class ProxyParser {
 				// If no @ symbol found, try legacy format
 				if (!serverPart) {
 					// Decode the entire mainPart for legacy format
-					let decodedLegacy = decodeBase64(mainPart);
+					let decodedLegacy = base64ToBinary(mainPart);
 					// Legacy format: method:password@server:port
 					let [methodAndPass, serverInfo] = decodedLegacy.split('@');
 					let [method, password] = methodAndPass.split(':');
@@ -46,7 +46,7 @@ export class ProxyParser {
 				}
 
 				// Continue with new format parsing
-				let decodedParts = decodeBase64(base64).split(':');
+				let decodedParts = base64ToBinary(decodeURIComponent(base64)).split(':');
 				let method = decodedParts[0];
 				let password = decodedParts.slice(1).join(':');
 				let [server, server_port] = this.parseServer(serverPart);
@@ -230,9 +230,15 @@ export class ProxyParser {
       
 
       class HttpParser {
-        static async parse(url) {
+        static async parse(url, userAgent) {
             try {
-                const response = await fetch(url);
+                let headers = new Headers({
+                  "User-Agent"   : userAgent
+                });
+                const response = await fetch(url, {
+                  method : 'GET',
+                  headers : headers
+                });
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
