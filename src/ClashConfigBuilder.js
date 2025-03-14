@@ -170,13 +170,13 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
             if (outbound !== 'Node Select') {
                 // 添加自己的定制化规则==================start
                 if (outbound === 'Ad Block') { // 如果是广告拦截
-                    this.config.outbounds.push({
+                    this.config['proxy-groups'].push({
                         type: "select",
                         tag: t(`outboundNames.${outbound}`),
                         proxies: ['REJECT', 'DIRECT']
                     });
                 } else if (outbound === 'Private' || outbound === 'Location:CN' || outbound === 'Bilibili') {
-                    this.config.outbounds.push({
+                    this.config['proxy-groups'].push({
                         type: "select",
                         tag: t(`outboundNames.${outbound}`),
                         proxies: ['DIRECT', 'REJECT', ...proxyList]
