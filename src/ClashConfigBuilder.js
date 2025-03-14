@@ -172,13 +172,13 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
                 if (outbound === 'Ad Block') { // 如果是广告拦截
                     this.config['proxy-groups'].push({
                         type: "select",
-                        tag: t(`outboundNames.${outbound}`),
+                        name: t(`outboundNames.${outbound}`),
                         proxies: ['REJECT', 'DIRECT']
                     });
                 } else if (outbound === 'Private' || outbound === 'Location:CN' || outbound === 'Bilibili') {
                     this.config['proxy-groups'].push({
                         type: "select",
-                        tag: t(`outboundNames.${outbound}`),
+                        name: t(`outboundNames.${outbound}`),
                         proxies: ['DIRECT', 'REJECT', ...proxyList]
                     });
                 } else {
