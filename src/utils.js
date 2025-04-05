@@ -163,6 +163,10 @@ export function parseServerInfo(serverInfo) {
 		  public_key: params.pbk,
 		  short_id: params.sid,
 		};
+		tls.utls = {
+		  enabled: true,
+		  fingerprint: "chrome",
+		};
 	  }
 	  if (!params?.security) {
 		tls.insecure = true;
