@@ -38,7 +38,7 @@ export const UNIFIED_RULES = [
 		name: 'Google',
 		outbound: t('outboundNames.Google'),
 		site_rules: ['google'],
-		ip_rules: ['google']
+		ip_rules: []
 	},
 	{
 		name: 'Private',
@@ -50,7 +50,7 @@ export const UNIFIED_RULES = [
 		name: 'Location:CN',
 		outbound: t('outboundNames.Location:CN'),
 		site_rules: ['geolocation-cn'],
-		ip_rules: ['cn']
+		ip_rules: []
 	},
 	{
 		name: 'Telegram',
