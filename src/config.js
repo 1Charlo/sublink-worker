@@ -50,7 +50,7 @@ export const UNIFIED_RULES = [
 		name: 'Location:CN',
 		outbound: t('outboundNames.Location:CN'),
 		site_rules: ['geolocation-cn'],
-		ip_rules: []
+		ip_rules: ['cn']
 	},
 	{
 		name: 'Telegram',
