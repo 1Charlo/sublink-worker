@@ -99,7 +99,7 @@ export const UNIFIED_RULES = [
 ];
 
 // Rule names that should default to DIRECT instead of Node Select
-export const DIRECT_DEFAULT_RULES = new Set(['Private', 'Location:CN']);
+export const DIRECT_DEFAULT_RULES = new Set(['Private', 'Location:CN', 'Bilibili']);
 export const REJECT_ACTION_RULES = new Set(['Ad Block']);
 
 export const PREDEFINED_RULE_SETS = {

@@ -405,6 +405,10 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
                     if (DIRECT_DEFAULT_RULES.has(outbound)) {
                         proxies = ['DIRECT', ...proxies.filter(p => p !== 'DIRECT')];
                     }
+                    // Ad Block rules default to REJECT, move REJECT to the front
+                    if (REJECT_ACTION_RULES.has(outbound)) {
+                        proxies = ['REJECT', ...proxies.filter(p => p !== 'REJECT')];
+                    }
                     const group = {
                         type: "select",
                         name,
