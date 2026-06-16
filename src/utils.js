@@ -312,7 +312,7 @@ export function createTlsConfig(params) {
 export function createTransportConfig(params) {
 	return {
 		type: params.type,
-		path: params.path ?? undefined,
+		path: (params.path && params.type !== "grpc") ?? undefined,
 		...(params.host && { 'headers': { 'host': params.host } }),
 		...(params.type === 'grpc' && {
 			service_name: params.serviceName ?? undefined,
