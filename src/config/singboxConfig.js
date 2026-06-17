@@ -7,16 +7,16 @@ export const SING_BOX_CONFIG = {
 	dns: {
 		servers: [
             {
-                type: "udp",
-                tag: "dns_resolver",
-                server: "223.5.5.5"
-            },
-            {
                 type: "tcp",
                 tag: "dns_proxy",
                 server: "1.1.1.1",
                 detour: "🚀 节点选择",
                 domain_resolver: "dns_resolver"
+            },
+			{
+                type: "udp",
+                tag: "dns_resolver",
+                server: "223.5.5.5"
             },
             {
                 type: "https",
