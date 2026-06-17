@@ -42,6 +42,14 @@ export const SING_BOX_CONFIG = {
                 clash_mode: "global",
                 server: "dns_proxy"
             },
+			{
+				action: "route",
+				rule_set: [
+                    "geolocation-cn",
+                    "cn"
+                ],
+				server: "dns_direct"
+			},
             {
                 rule_set: "geolocation-!cn",
                 query_type: [
@@ -54,16 +62,6 @@ export const SING_BOX_CONFIG = {
                 rule_set: "geolocation-!cn",
                 query_type: "CNAME",
                 server: "dns_proxy"
-            },
-            {
-                query_type: [
-                    "A",
-                    "AAAA",
-                    "CNAME"
-                ],
-                invert: true,
-                action: "predefined",
-                rcode: "REFUSED"
             }
         ],
         disable_cache: false,
