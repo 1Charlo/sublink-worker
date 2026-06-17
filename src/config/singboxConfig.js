@@ -6,57 +6,69 @@
 export const SING_BOX_CONFIG = {
 	dns: {
 		servers: [
-			{
-				type: "tcp",
-				tag: "dns_proxy",
-				server: "1.1.1.1",
-				detour: "🚀 节点选择",
-				domain_resolver: "dns_resolver"
-			},
-			{
-				type: "https",
-				tag: "dns_direct",
-				server: "dns.alidns.com",
-				domain_resolver: "dns_resolver"
-			},
-			{
-				type: "udp",
-				tag: "dns_resolver",
-				server: "223.5.5.5"
-			},
-			{
-				type: "fakeip",
-				tag: "dns_fakeip",
-				inet4_range: "198.18.0.0/15",
-				inet6_range: "fc00::/18"
-			}
-		],
-		rules: [
-			{
-				rule_set: "geolocation-!cn",
-				query_type: [
-					"A",
-					"AAAA"
-				],
-				server: "dns_fakeip"
-			},
-			{
-				rule_set: "geolocation-!cn",
-				query_type: "CNAME",
-				server: "dns_proxy"
-			},
-			{
-				query_type: [
-					"A",
-					"AAAA",
-					"CNAME"
-				],
-				invert: true,
-				action: "predefined",
-				rcode: "REFUSED"
-			}
-		],
-		final: "dns_direct"
+            {
+                type: "udp",
+                tag: "dns_resolver",
+                server: "223.5.5.5"
+            },
+            {
+                type: "tcp",
+                tag: "dns_proxy",
+                server: "1.1.1.1",
+                detour: "🚀 节点选择",
+                domain_resolver: "dns_resolver"
+            },
+            {
+                type: "https",
+                tag: "dns_direct",
+                server: "dns.alidns.com",
+                domain_resolver: "dns_resolver"
+            },
+            {
+                type: "fakeip",
+                tag: "dns_fakeip",
+                inet4_range: "198.18.0.0/15",
+                inet6_range: "fc00::/18"
+            }
+        ],
+        rules: [
+            {
+                action: "route",
+                clash_mode: "direct",
+                server: "dns_direct"
+            },
+            {
+                action: "route",
+                clash_mode: "global",
+                server: "dns_proxy"
+            },
+            {
+                rule_set: "geolocation-!cn",
+                query_type: [
+                    "A",
+                    "AAAA"
+                ],
+                server: "dns_fakeip"
+            },
+            {
+                rule_set: "geolocation-!cn",
+                query_type: "CNAME",
+                server: "dns_proxy"
+            },
+            {
+                query_type: [
+                    "A",
+                    "AAAA",
+                    "CNAME"
+                ],
+                invert: true,
+                action: "predefined",
+                rcode: "REFUSED"
+            }
+        ],
+        disable_cache: false,
+        disable_expire: false,
+        final: "dns_proxy"
 	},
 	ntp: {
 		enabled: true,
@@ -72,7 +84,9 @@ export const SING_BOX_CONFIG = {
 		{ type: "direct", tag: 'DIRECT' }
 	],
 	route: {
-		default_domain_resolver: "dns_resolver",
+		"default_domain_resolver": {
+      		"server": "dns_resolver"
+    	},
 		"rule_set": [
 			{
 				"tag": "geosite-geolocation-!cn",
